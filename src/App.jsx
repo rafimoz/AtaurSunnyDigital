@@ -1,9 +1,16 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { useForm, ValidationError } from '@formspree/react';
 import './App.css'
 import headerImg from './assets/header.png'
 
 function App() {
+  const [state, handleSubmit] = useForm("xjkojpkj");
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  if (state.succeeded && !showSuccess) {
+    setShowSuccess(true);
+  }
 
   const svgRef = useRef(null);
 
@@ -55,84 +62,85 @@ function App() {
     </svg>
   );
 
-  // Learn More Arrow Icon
-  const ArrowIcon = () => (
-    <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1.51172 1.27954L6.6864 6.09853L1.8674 11.2732" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-  );
-
   // The Service Card Component
-  const ServiceCard = ({ title, description, icon: IconComponent }) => (
+  const ServiceCard = ({ title, description, icon: IconComponent, price }) => (
     <div className='p-4 rounded-2xl bg-secondary/10 dark:bg-primary/10 dark:text-primary text-secondary flex flex-col justify-between hover:bg-secondary/80 dark:hover:bg-primary/80 hover:text-primary dark:hover:text-secondary transform hover:-rotate-2 group transition-all'>
       <div className='flex flex-col md:gap-2 gap-1'>
         <IconComponent />
         <h3 className='md:text-2xl text-xl font-semibold'>{title}</h3>
         <p className='md:text-lg text-md'>{description}</p>
       </div>
-      <a className='flex mt-10 items-center gap-2 group-hover:text-primary dark:group-hover:text-secondary dark:text-primary text-secondary transition-all stroke-current' href="">
-        Learn more
-        <ArrowIcon />
-      </a>
+      <p className='flex mt-10 md:text-xl text-lg font-[500] items-center gap-2 group-hover:text-primary dark:group-hover:text-secondary dark:text-primary text-secondary transition-all stroke-current'>
+        {price}
+      </p>
     </div>
   );
 
   const about = `I'm Ataur Rahman Sunny, a passionate and results-driven Digital Marketing Specialist with over five years of experience helping businesses grow and scale online. My expertise lies in both Social Media Marketing and Search Engine Marketing, where I build profitable digital systems that transform cold traffic into loyal customers. I specialize in a range of services, including Facebook & Instagram Ads, Google Search & Display Ads, and Conversion Tracking & Analytics. I've had the pleasure of working with clients across various industries, from eCommerce to Real Estate, and I'm dedicated to crafting strategic, data-backed campaigns that deliver a strong return on investment. If you're looking to launch a new brand, scale your store, or optimize your ad performance, I'm here to help you build a smart and sustainable growth strategy.`;
-  
+
   const services = [
     {
       title: 'Google Ads Management',
       description: 'Search, Display, Youtube, Performance Max campaigns.',
       icon: GoogleIcon,
+      price: '$400/Monthly',
     },
     {
       title: 'Facebook Ads Management',
       description: 'Audience Research, Ad Copywriting, Creative Design, A/B Testing, Retargeting.',
       icon: FacebookIcon,
+      price: '$400/Monthly',
     },
     {
       title: 'YouTube SEO',
       description: 'Title, Tag, Thumbnail, Description Optimization + Ranking Strategy.',
       icon: YoutubeIcon,
+      price: '$300/Monthly',
     },
     {
-      title: 'Data Analytics',
-      description: 'Website tracking, Funnel visualization, Data studio, Google Tag Manager.',
+      title: 'Shopify Store Optimization',
+      description: 'High-Converting Product Pages, Speed Optimization, Trust Elements Setup.',
       icon: DataAnalyticsIcon,
+      price: '$400/Monthly',
     },
   ];
 
   const testimonials = [
     {
-      name: 'Sojar Datta',
-      title: 'Google Ads & Analytics Tracking Consultant',
-      company: 'CEO, Forian Foundation LTD.',
-      quote: '“Figma ipsum component variant main layer. List inspect thumbnail project object main. Flows style editor asset outline. Team align strikethrough arrange vector rectangle arrow opacity team.”',
+      name: null,
+      title: 'Need Adwords Conversion Tracking for Elementor Form',
+      company: null,
+      image: '',
+      quote: '“Great work! Fast and great communication. Very knowledgeable!”',
     },
     {
-      name: 'Jane Doe',
-      title: 'Digital Marketing Strategist',
-      company: 'CMO, Tech Solutions Inc.',
-      quote: '“Figma ipsum component variant main layer. List inspect thumbnail project object main. Flows style editor asset outline. Team align strikethrough arrange vector rectangle arrow opacity team.”',
+      name: null,
+      title: 'Google Ads Conversion Tracking Specialist',
+      company: null,
+      image: '',
+      quote: '“Awesome, nice and helpfull. 10/10. Going to contact Ataur Rahman again when I need help.”',
     },
     {
-      name: 'John Smith',
-      title: 'UX/UI Designer',
-      company: 'Lead Designer, Creative Labs',
-      quote: '“Figma ipsum component variant main layer. List inspect thumbnail project object main. Flows style editor asset outline. Team align strikethrough arrange vector rectangle arrow opacity team.”',
+      name: null,
+      title: '30 minute consultation',
+      company: null,
+      image: '',
+      quote: '“Ataur Rahman was very understanding and patient with figuring out my project. I would highly recommend. His communication was clear and fast!”',
     },
     {
-      name: 'Emily White',
-      title: 'Full Stack Developer',
-      company: 'CTO, Innovate Co.',
-      quote: '“Figma ipsum component variant main layer. List inspect thumbnail project object main. Flows style editor asset outline. Team align strikethrough arrange vector rectangle arrow opacity team.”',
+      name: null,
+      title: 'Google Ads & Analytics Tracking Consultant (Time-Sensitive Project)',
+      company: null,
+      image: '',
+      quote: '“Ataur Rahman did a fantastic job at setting up tracking for our PPC campaigns! He made everything super easy and got everything tracking correctly. Highly recommend!”',
     },
     {
-      name: 'Michael Brown',
-      title: 'Project Manager',
-      company: 'Project Lead, Global Corp.',
-      quote: '“Figma ipsum component variant main layer. List inspect thumbnail project object main. Flows style editor asset outline. Team align strikethrough arrange vector rectangle arrow opacity team.”',
-    },
+      title: "Server Side tracking for Shopify Stores",
+      quote: "“It was easy to work with Ataur Rahman. Initially promised 2-3 days to finish work, but managed to do in one. Answers all the questions in timely manner, which made the project to work super easy. Really recommend him.”",
+      name: null,
+      image: '',
+      company: null
+    }
   ];
 
   const QuoteIcon = () => (
@@ -150,7 +158,7 @@ function App() {
     </svg>
   );
 
-  const TestimonialCard = ({ name, title, company, quote }) => (
+  const TestimonialCard = ({ name, title, company, quote, image }) => (
     <div className='bg-[#2C444C] p-6 rounded-3xl min-w-[320px] flex flex-col justify-between transform hover:scale-90 hover:rotate-2 transition-all duration-300'>
       <QuoteIcon />
       <div className='flex flex-col gap-3 text-primary my-12 text-wrap grow'>
@@ -162,7 +170,9 @@ function App() {
         </div>
       </div>
       <div className='flex items-center gap-2'>
-        <div className='w-12 h-12 rounded-full bg-primary'></div>
+        <div className='w-12 h-12 rounded-full bg-primary/50 overflow-hidden'>
+          <img className='w-full h-full object-cover scale-110' src={image} alt="" />
+        </div>
         <div className='leading-5'>
           <p className='text-primary'>{name}</p>
           <p className='text-primary/70'>{company}</p>
@@ -173,29 +183,23 @@ function App() {
 
   const portfolioItems = [
     {
-      title: 'Google Ad Setup & Optimizations',
-      description: 'Developed and optimized high-performing sales ad campaigns that increased conversion rates by 25%. Implemented A/B testing and retargeting strategies to maximize ROI.',
-      tags: ['google','ads', 'optimization', 'sales'],
+      title: 'High-Impact Google Ads Campaign',
+      description: 'Showcasing a successful Google Ads campaign that achieved 112K clicks and a $144/conversion rate at a total cost of $738K, demonstrating the power of strategic ad management.',
+      tags: ['GoogleAds', 'campaign', 'marketing', 'conversion'],
       image: 'https://media.licdn.com/dms/image/v2/D5622AQHdQOtcDKs5Xw/feedshare-shrink_800/B56ZQJKjRfHIAg-/0/1735320550006?e=1757548800&v=beta&t=sBdGvZS5HLaBuU8Swd20vY1XyuGS6UXvqMxGFCGq6Ok',
     },
     {
-      title: 'Facebook Ads Management',
-      description: 'Managed Facebook ad campaigns, focusing on audience research and creative design. Achieved a 40% reduction in cost per acquisition through continuous optimization and performance analysis.',
-      tags: ['facebook', 'ads', 'social'],
-      image: 'https://images.unsplash.com/photo-1596526131088-a49688461754?q=80&w=1740&auto=format&fit=crop',
-    },
-    {
-      title: 'YouTube SEO & Ranking Strategy',
-      description: 'Improved video visibility and organic reach with a comprehensive YouTube SEO strategy. Focused on title, tag, and thumbnail optimization to drive a 300% increase in watch time and subscriber growth.',
-      tags: ['youtube', 'seo', 'video'],
+      title: 'YouTube Video SEO Optimization',
+      description: `A case study demonstrating the successful optimization of a YouTube video to achieve a perfect 100 SEO Score, leading to increased visibility and alignment with YouTube's best practices.`,
+      tags: ['SEO', 'YouTube', 'Optimization', 'Marketing'],
       image: 'https://media.licdn.com/dms/image/v2/D5622AQHQMOv_iizyKg/feedshare-shrink_800/feedshare-shrink_800/0/1728051273368?e=1757548800&v=beta&t=YrLRsVmPHaNERj6ytYPGD3fAMd3HMdaETF-vudtW4Pg',
     },
     {
-      title: 'Performance Max Campaigns',
-      description: 'Launched and managed Google Performance Max campaigns that consolidated various ad types, resulting in a 50% increase in online sales and a streamlined ad management process.',
-      tags: ['google', 'ads', 'ppc'],
-      image: 'https://images.unsplash.com/photo-1621905241913-e517865c010c?q=80&w=1740&auto=format&fit=crop',
-    },
+      title: 'Google Merchant Center Issue Resolution',
+      description: 'A case study of successfully resolving product feed issues in Google Merchant Center, resulting in a product becoming an active item and ready for Google Shopping campaigns.',
+      tags: ['Google', 'Merchant', 'Shopping', 'eCommerce'],
+      image: 'https://media.licdn.com/dms/image/v2/C5622AQEdaGXk0sRFYw/feedshare-shrink_800/feedshare-shrink_800/0/1658327623672?e=1757548800&v=beta&t=hW81vNNs1Nzg6-PCavXSFQhDWIx9lAAwk1tJQ-jvHnA',
+    }
   ];
 
   const Arrowicon = () => (
@@ -237,46 +241,85 @@ function App() {
 
   const ContactForm = () => (
     <div className='md:w-[40%] h-screen flex justify-center flex-col gap-10 w-full text-secondary dark:text-primary'>
-      <h2 className='text-4xl font-serif text-center'>Get in touch</h2>
-      <form className='flex flex-col gap-4'>
-        <input
-          type='text'
-          placeholder='Name'
-          className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600'
-        />
-        <input
-          type='email'
-          placeholder='Email'
-          className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600'
-        />
-        <textarea
-          placeholder='Write a message.'
-          rows='5'
-          className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600 resize-none'
-        ></textarea>
-        <button
-          type='submit'
-          className='bg-secondary dark:bg-primary dark:text-secondary hover:bg-secondary/80 dark:hover:bg-primary/80 text-primary font-bold py-3 rounded-xl transition-colors'
-        >
-          Send Message
-        </button>
-      </form>
+      <h2 className='md:text-5xl text-3xl font-playfairdisplay text-center'>Get in touch</h2>
+      {showSuccess ? (
+        <div className='flex flex-col gap-3 items-center text-center'>
+          <p className='text-3xl font-playfairdisplay text-green-500'>Thanks for your message!</p>
+          <p className='text-lg'>I'll get back to you shortly.</p>
+          <button
+            onClick={() => setShowSuccess(false)}
+            className='bg-secondary dark:bg-primary dark:text-secondary hover:bg-secondary/80 dark:hover:bg-primary/80 text-primary font-bold py-3 px-6 rounded-xl transition-colors mt-4'
+          >
+            Close
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+          <input
+            id="name"
+            type='text'
+            name="name"
+            placeholder='Name'
+            className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600'
+          />
+          <ValidationError
+            prefix="Name"
+            field="name"
+            errors={state.errors}
+          />
+
+          <input
+            id="email"
+            type='email'
+            name="email"
+            placeholder='Email'
+            className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600'
+          />
+          <ValidationError
+            prefix="Email"
+            field="email"
+            errors={state.errors}
+          />
+
+          <textarea
+            id="message"
+            name="message"
+            placeholder='Write a message.'
+            rows='5'
+            className='p-4 rounded-xl bg-secondary/70 dark:bg-primary/70 dark:text-secondary text-primary dark:placeholder:text-secondary/80 placeholder:text-primary/80 focus:outline-none focus:ring-2 focus:ring-gray-600 resize-none'
+          ></textarea>
+          <ValidationError
+            prefix="Message"
+            field="message"
+            errors={state.errors}
+          />
+
+          <button
+            type='submit'
+            disabled={state.submitting}
+            className='bg-secondary dark:bg-primary dark:text-secondary hover:bg-secondary/80 dark:hover:bg-primary/80 text-primary font-bold py-3 rounded-xl transition-colors'
+          >
+            Send Message
+          </button>
+        </form>
+      )}
       <div className='flex justify-center gap-4'>
-        <a href='#' aria-label='WhatsApp'>
-          <svg className='w-8 h-8 hover:text-green-500 text-secondary fill-current transition-colors' viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href='https://wa.me/+8801999312082' target='_blank' aria-label='WhatsApp'>
+          <svg className='w-8 h-8 hover:text-green-500 dark:text-primary text-secondary fill-current transition-colors' viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16.0005 0.360001C7.37669 0.360001 0.360452 7.37624 0.360452 16C0.360452 18.6928 1.05609 21.3407 2.37529 23.6772L0.385612 30.7764C0.320332 31.0096 0.383573 31.2599 0.552213 31.4333C0.682093 31.5672 0.858892 31.64 1.04045 31.64C1.09485 31.64 1.14993 31.6332 1.20365 31.6203L8.61293 29.785C10.8753 30.9994 13.4233 31.64 16.0005 31.64C24.6242 31.64 31.6405 24.6238 31.6405 16C31.6405 7.37624 24.6242 0.360001 16.0005 0.360001ZM23.8681 21.5189C23.5335 22.445 21.9287 23.2903 21.1576 23.4038C20.4653 23.5052 19.5895 23.5487 18.628 23.2468C18.0452 23.0632 17.2972 22.8197 16.3391 22.411C12.3115 20.6934 9.68121 16.6888 9.47993 16.4243C9.27933 16.1598 7.84045 14.2748 7.84045 12.3239C7.84045 10.373 8.87745 9.41352 9.24601 9.0164C9.61457 8.61928 10.0491 8.52 10.317 8.52C10.5849 8.52 10.8522 8.5234 11.0868 8.53428C11.3336 8.54652 11.6648 8.44112 11.9905 9.21496C12.3251 10.0092 13.1281 11.9601 13.2274 12.1594C13.3281 12.3579 13.3947 12.5898 13.2614 12.8543C13.1281 13.1188 13.0615 13.2841 12.8602 13.516C12.6589 13.7478 12.4386 14.0328 12.2577 14.2109C12.0565 14.4088 11.8477 14.623 12.0816 15.0201C12.3155 15.4172 13.1213 16.7154 14.3154 17.7666C15.8488 19.1171 17.1429 19.536 17.5441 19.7346C17.9453 19.9331 18.1799 19.8998 18.4138 19.6353C18.6477 19.3701 19.4175 18.4772 19.6847 18.0808C19.9519 17.6844 20.2199 17.7496 20.5884 17.8822C20.957 18.0142 22.931 18.973 23.3322 19.1715C23.7334 19.3701 24.0013 19.4694 24.102 19.6346C24.2026 19.7992 24.2026 20.5934 23.8681 21.5189Z" />
           </svg>
         </a>
-        <a href='#' aria-label='Instagram'>
-          <svg className='w-8 h-8 t hover:text-pink-700 text-secondary fill-current transition-colors' viewBox="0 0 29 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.92035 0.98C4.47495 0.98 0.860352 4.8278 0.860352 9.56V21.44C0.860352 26.1722 4.47495 30.02 8.92035 30.02H20.0804C24.5258 30.02 28.1404 26.1722 28.1404 21.44V9.56C28.1404 4.8278 24.5258 0.98 20.0804 0.98H8.92035ZM21.9404 6.26C22.6224 6.26 23.1804 6.854 23.1804 7.58C23.1804 8.306 22.6224 8.9 21.9404 8.9C21.2584 8.9 20.7004 8.306 20.7004 7.58C20.7004 6.854 21.2584 6.26 21.9404 6.26ZM14.5004 8.24C18.2638 8.24 21.3204 11.4938 21.3204 15.5C21.3204 19.5062 18.2638 22.76 14.5004 22.76C10.737 22.76 7.68035 19.5062 7.68035 15.5C7.68035 11.4938 10.737 8.24 14.5004 8.24ZM14.5004 9.56C11.4252 9.56 8.92035 12.2264 8.92035 15.5C8.92035 18.7736 11.4252 21.44 14.5004 21.44C17.5756 21.44 20.0804 18.7736 20.0804 15.5C20.0804 12.2264 17.5756 9.56 14.5004 9.56Z" />
-          </svg>
-        </a>
-        <a href='#' aria-label='Facebook'>
-          <svg className='w-8 h-8 t hover:text-blue-600 text-secondary fill-current transition-colors' viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href='https://m.me/ar.sunny.3766' target='_blank' aria-label='Facebook'>
+          <svg className='w-8 h-8 hover:text-blue-600 dark:text-primary text-secondary fill-current transition-colors' viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 0.0400009C6.73804 0.0400009 0.0400391 6.738 0.0400391 15C0.0400391 22.5004 5.56504 28.6932 12.7642 29.775V18.9651H9.06296V15.0326H12.7642V12.416C12.7642 8.08372 14.8749 6.18176 18.4755 6.18176C20.2 6.18176 21.1119 6.3096 21.5437 6.36808V9.80072H19.0875C17.5589 9.80072 17.0251 11.2498 17.0251 12.8832V15.0326H21.5049L20.897 18.9651H17.0251V29.807C24.3269 28.8162 29.96 22.5732 29.96 15C29.96 6.738 23.262 0.0400009 15 0.0400009Z" />
           </svg>
         </a>
+        <a href='https://www.linkedin.com/in/ataur-rahman-sunny-335a12225' target='_blank' aria-label='Instagram'>
+          <svg className='w-8 h-8 hover:text-blue-400 dark:text-primary text-secondary fill-current transition-colors' fill="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 26 26">
+            <path d="M 21.125 0 L 4.875 0 C 2.183594 0 0 2.183594 0 4.875 L 0 21.125 C 0 23.816406 2.183594 26 4.875 26 L 21.125 26 C 23.816406 26 26 23.816406 26 21.125 L 26 4.875 C 26 2.183594 23.816406 0 21.125 0 Z M 8.039063 22.070313 L 4 22.070313 L 3.976563 9.976563 L 8.015625 9.976563 Z M 5.917969 8.394531 L 5.894531 8.394531 C 4.574219 8.394531 3.722656 7.484375 3.722656 6.351563 C 3.722656 5.191406 4.601563 4.3125 5.945313 4.3125 C 7.289063 4.3125 8.113281 5.191406 8.140625 6.351563 C 8.140625 7.484375 7.285156 8.394531 5.917969 8.394531 Z M 22.042969 22.070313 L 17.96875 22.070313 L 17.96875 15.5 C 17.96875 13.910156 17.546875 12.828125 16.125 12.828125 C 15.039063 12.828125 14.453125 13.558594 14.171875 14.265625 C 14.066406 14.519531 14.039063 14.867188 14.039063 15.222656 L 14.039063 22.070313 L 9.945313 22.070313 L 9.921875 9.976563 L 14.015625 9.976563 L 14.039063 11.683594 C 14.5625 10.875 15.433594 9.730469 17.519531 9.730469 C 20.105469 9.730469 22.039063 11.417969 22.039063 15.046875 L 22.039063 22.070313 Z"></path>
+          </svg>
+        </a>
+
       </div>
     </div>
   );
@@ -304,7 +347,7 @@ function App() {
           <div className='flex items-center gap-1 md:text-md text-sm'>
             {/* Location SVG icon */}
             <svg className='md:w-8 w-5 dark:text-primary text-secondary stroke-current' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 10.5C15 11.2956 14.6839 12.0587 14.1213 12.6213C13.5587 13.1839 12.7956 13.5 12 13.5C11.2044 13.5 10.4413 13.1839 9.87868 12.6213C9.31607 12.0587 9 11.2956 9 10.5C9 9.70435 9.31607 8.94129 9.87868 8.37868C10.4413 7.81607 11.2044 7.5 12 7.5C12.7956 7.5 13.5587 7.81607 14.1213 8.37868C14.6839 8.94129 15 9.70435 15 10.5Z"  stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M15 10.5C15 11.2956 14.6839 12.0587 14.1213 12.6213C13.5587 13.1839 12.7956 13.5 12 13.5C11.2044 13.5 10.4413 13.1839 9.87868 12.6213C9.31607 12.0587 9 11.2956 9 10.5C9 9.70435 9.31607 8.94129 9.87868 8.37868C10.4413 7.81607 11.2044 7.5 12 7.5C12.7956 7.5 13.5587 7.81607 14.1213 8.37868C14.6839 8.94129 15 9.70435 15 10.5Z" stroke-linecap="round" stroke-linejoin="round" />
               <path d="M19.5 10.5C19.5 17.642 12 21.75 12 21.75C12 21.75 4.5 17.642 4.5 10.5C4.5 8.51088 5.29018 6.60322 6.6967 5.1967C8.10322 3.79018 10.0109 3 12 3C13.9891 3 15.8968 3.79018 17.3033 5.1967C18.7098 6.60322 19.5 8.51088 19.5 10.5Z" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <span>DHAKA, BANGLADESH</span>
@@ -314,7 +357,7 @@ function App() {
         {/* Center Section - Copyright */}
         <div className='text-sm text-secondary/80 dark:text-primary/80 text-center'>
           <div className='w-full h-[1px] bg-secondary/80 dark:bg-primary/80'></div>
-          <p className='py-2 md:text-md text-sm'>Copyright © Reserved. Website developed by <a className=' hover:underline' href="https://www.linkedin.com/in/rafi-mozumder/" target='_blank' >Rafi Mazumder</a></p>
+          <p className='py-2 md:text-md text-sm'>Copyright © Developed by <a className=' hover:underline' href="https://www.linkedin.com/in/rafi-mozumder/" target='_blank' >Rafi Mazumder</a></p>
         </div>
       </div>
 
@@ -340,13 +383,13 @@ function App() {
             <div className='z-10'>
               <h3 className='md:text-3xl text-xl font-playfairdisplay'>Hey. I’m Sunny,</h3>
               <div className='md:text-6xl text-4xl'>
-                <h1 className='font-bebasneue font-bold'>A DIGITAL</h1>
-                <h1 className='font-playfairdisplay italic'>& Brand</h1>
+                <h1 className='font-bebasneue font-bold'>A GROWTH</h1>
+                <h1 className='font-playfairdisplay italic'>& Digital</h1>
                 <h1 className='font-bebasneue font-bold'>MARKETER</h1>
               </div>
-              <p className='md:text-xl text-lg w-80 md:mt-4 mt-2'>Transforming ideas into stunning ADs and brand design that captivates, engages, and delivers results.</p>
-              <div className='w-full flex md:justify-start justify-center group'>
-                <a href='#contact' className='flex mt-8 items-center gap-4 p-1 rounded-full group-hover:bg-white group-hover:text-secondary bg-secondary dark:bg-primary dark:text-secondary text-primary transition-all'><span className='px-1 pl-2 font-semibold'>CONTACT ME</span>
+              <p className='md:text-xl text-lg w-80 md:mt-4 mt-2'>Delivering results-driven strategies for Facebook Ads, Google Ads, Shopify stores, and YouTube SEO to captivate, engage, and deliver.</p>
+              <div className='w-full flex md:justify-start justify-center '>
+                <a href='#contact' className='flex mt-8 items-center gap-4 group p-1 rounded-full hover:bg-white hover:text-secondary bg-secondary dark:bg-primary dark:text-secondary text-primary transition-all'><span className='px-1 pl-2 font-semibold'>CONTACT ME</span>
                   <svg className='w-8 group-hover:rotate-90 transition-all' viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="18" cy="18" r="18" fill="white" />
                     <path d="M10 17C9.44772 17 9 17.4477 9 18C9 18.5523 9.44772 19 10 19V18V17ZM26.7071 18.7071C27.0976 18.3166 27.0976 17.6834 26.7071 17.2929L20.3431 10.9289C19.9526 10.5384 19.3195 10.5384 18.9289 10.9289C18.5384 11.3195 18.5384 11.9526 18.9289 12.3431L24.5858 18L18.9289 23.6569C18.5384 24.0474 18.5384 24.6805 18.9289 25.0711C19.3195 25.4616 19.9526 25.4616 20.3431 25.0711L26.7071 18.7071ZM10 18V19H26V18V17H10V18Z" fill="#1F1F1F" />
@@ -372,7 +415,7 @@ function App() {
       {/*About section*/}
       <section id='about' className='h-screen flex items-center overflow-hidden'>
         <div className='max-w-7xl mx-auto md:px-8 px-4 flex flex-col items-center justify-center'>
-          <h1 className='md:text-4xl text-2xl dark:text-primary text-secondary font-playfairdisplay mb-4'>About Me</h1>
+          <h1 className='md:text-5xl text-3xl dark:text-primary text-secondary font-playfairdisplay mb-4'>About Me</h1>
           <p className='md:text-xl text-lg dark:text-primary text-secondary text-center'>{about}</p>
         </div>
       </section>
@@ -380,17 +423,17 @@ function App() {
       {/*Services section*/}
       <section id='services' className='md:h-screen flex items-center'>
         <div className='max-w-7xl mx-auto md:px-8 px-4'>
-          <div className='py-10 flex items-center justify-between'>
+          <div className='py-10 flex flex-col justify-between'>
             {/* Heading Area */}
-            <div>
-              <h2 className='text-2xl md:text-4xl dark:text-primary text-secondary font-playfairdisplay'>
+            <div className='flex justify-between items-center'>
+              <h2 className='md:text-5xl text-3xl dark:text-primary text-secondary font-playfairdisplay'>
                 My Services
               </h2>
-              <p className='mt-4 text-base sm:text-lg dark:text-primary/70 text-secondary/70 max-w-xl'>
-                blanditiis eos optio assumenda! Dolorem asperiores, praesentium harum nostrum optio necessitatibus velit.
-              </p>
+              <a href='#contact' className='p-2 md:px-4 px-3 md-text-md text-sm dark:bg-primary bg-secondary dark:text-secondary text-primary rounded-full cursor-pointer dark:hover:bg-primary/70 hover:bg-secondary/70'>Get Started</a>
             </div>
-            <button className='p-2 md:px-4 px-3 md-text-md text-sm dark:bg-primary bg-secondary dark:text-secondary text-primary rounded-full cursor-pointer dark:hover:bg-primary/70 hover:bg-secondary/70'>Get Started</button>
+            <p className='mt-4 md:text-lg dark:text-primary/70 text-secondary/70 max-w-3xl'>
+              I provide expert Google Ads and Analytics tracking services, including server-side tracking, PPC campaign management, and consultations for various platforms like Shopify and Elementor.
+            </p>
           </div>
 
           <div className='grid md:grid-cols-2 grid-cols-1 gap-4 mb-10'>
@@ -400,6 +443,7 @@ function App() {
                 title={service.title}
                 description={service.description}
                 icon={service.icon}
+                price={service.price}
               />
             ))}
           </div>
@@ -411,12 +455,11 @@ function App() {
         <div className='max-w-7xl mx-auto md:px-8 px-4'>
           {/* Heading Area */}
           <div className='mb-12 lg:mb-16 text-center flex flex-col justify-center'>
-            <h2 className='text-2xl md:text-4xl text-secondary dark:text-primary font-playfairdisplay'>
+            <h2 className='md:text-5xl text-3xl text-secondary dark:text-primary font-playfairdisplay'>
               Client Success Stories
             </h2>
-            <p className='mt-4 text-base sm:text-lg text-secondary/70 dark:text-primary/70'>
-              blanditiis eos optio assumenda! Dolorem asperiores, praesentium harum nostrum optio necessitatibus velit.
-            </p>
+            <p className='mt-4 text-base md:text-lg text-secondary/70 dark:text-primary/70'>
+              See what my clients have to say about my expertise in Google Ads and Analytics tracking, and the quality of my work.            </p>
           </div>
         </div>
         <div className='overflow-x-scroll md:px-8 px-4'>
@@ -428,6 +471,7 @@ function App() {
                 title={testimonial.title}
                 company={testimonial.company}
                 quote={testimonial.quote}
+                image={testimonial.image}
               />
             ))}
           </div>
@@ -439,12 +483,11 @@ function App() {
         <div className='max-w-7xl mx-auto px-4 md:px-6'>
           {/* Heading Area */}
           <div className='mb-12 lg:mb-16'>
-            <h2 className='text-2xl md:text-4xl text-secondary dark:text-primary font-playfairdisplay'>
+            <h2 className='md:text-5xl text-3xl text-secondary dark:text-primary font-playfairdisplay'>
               Portfolio & Case Studies
             </h2>
-            <p className='mt-4 text-base sm:text-lg text-secondary/70 dark:text-primary/70 max-w-xl'>
-              Explore my past projects and success stories. Each case study details the challenges, solutions, and results of my work.
-            </p>
+            <p className='mt-4 text-base md:text-lg text-secondary/70 dark:text-primary/70 max-w-3xl'>
+              Explore my portfolio and detailed case studies to see how I've successfully implemented tracking solutions and driven results for a diverse range of clients.            </p>
           </div>
 
           {/* Portfolio Grid */}
