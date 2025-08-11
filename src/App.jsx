@@ -421,7 +421,7 @@ function App() {
       </section>
 
       {/*Services section*/}
-      <section id='services' className='md:h-screen flex items-center'>
+      <section id='services' className='my-30 md:my-40'>
         <div className='max-w-7xl mx-auto md:px-8 px-4'>
           <div className='py-10 flex flex-col justify-between'>
             {/* Heading Area */}
@@ -451,7 +451,7 @@ function App() {
       </section>
 
       {/*Testimonial section*/}
-      <section id='testimonial' className='py-30 md:py-40'>
+      <section id='testimonial' className='my-30 md:my-40'>
         <div className='max-w-7xl mx-auto md:px-8 px-4'>
           {/* Heading Area */}
           <div className='mb-12 lg:mb-16 text-center flex flex-col justify-center'>
@@ -479,7 +479,7 @@ function App() {
       </section>
 
       {/*Portfolio section*/}
-      <section id='portfolio' className='py-16 md:py-30'>
+      <section id='portfolio' className='my-30 md:my-40'>
         <div className='max-w-7xl mx-auto px-4 md:px-6'>
           {/* Heading Area */}
           <div className='mb-12 lg:mb-16'>
